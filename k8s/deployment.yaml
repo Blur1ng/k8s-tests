@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test4k8s-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: test4k8s # Deployment управляет только теми подами, у которых есть label app: test4k8s
+  template: # Шаблон для создания новых подов
+    metadata:
+      labels:
+        app: test4k8s # Лейбл который получит каждый созданный под
+    spec:
+      containers: # Список контейнеров в поде
+      - name: test4k8s
+        image: blur1ng/test4k8s:0.0.5
+        ports:
+        - containerPort: 8000
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "300m"
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1          # МАКСИМУМ "ЛИШНИХ" ПОДОВ
+      maxUnavailable: 0    # МАКСИМУМ НЕДОСТУПНЫХ ПОДОВ
+  minReadySeconds: 5 # После того как под перешел в состояние Ready, ждет еще 5 секунд прежде чем считать его полностью работоспособным.
+
+  

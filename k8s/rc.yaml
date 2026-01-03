@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: test4k8s-rc
+spec:
+  replicas: 3
+  selector:
+    app: test4k8s
+  template:
+    metadata:
+      name: test4k8s-app
+      labels:
+        app: test4k8s
+    spec:
+      containers:
+        - name: test4k8s-image
+          image: blur1ng/test4k8s:0.0.5
+          ports:
+            - containerPort: 8000
