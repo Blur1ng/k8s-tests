@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test4k8s
+spec:
+  containers:
+  - name: test4k8s
+    image: blur1ng/test4k8s:0.0.5
+    ports:
+      - containerPort: 8000
+    resources:
+      requests:
+        memory: "128Mi"
+        cpu: "100m"
+      limits:
+        memory: "256Mi"
+        cpu: "300m"
